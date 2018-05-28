@@ -1,0 +1,71 @@
+
+$themeColor: #37cf6b;
+
+// 颜色对应关系
+$color-list:(
+	chunyu_wap: #37cf6b,
+	yidianzixun: #129aee,
+	snsnb: #e03300,
+	letuhui_weixin: #ff8600,
+	huzhu17: #ff6a00,
+	feifan: #54dce5
+);
+// 判断颜色
+@function judge-color($partner){
+	@each $property, $value in $color-list{
+		@if $property == $partner{
+			$themeColor:$value;
+			@return $themeColor;
+		}
+	}
+	@return $themeColor;
+}
+
+@mixin common-theme($themeColor:$themeColor)
+{
+	.qa-btn{
+		background-color: $themeColor;
+	}
+	.block-right .circle.cur{
+		border-color: $themeColor;
+		&:after{
+			background-color: $themeColor;
+		}
+	}
+	.sex.cur i{
+		border-color: $themeColor;
+		background-color: $themeColor;
+	}
+}
+#app{
+	// 一点资讯
+	.yidianzixun{
+		$themeColor: judge-color('yidianzixun');
+
+		@include common-theme($themeColor);
+	}
+	// 生男生女帮-丁超
+	.snsnb{
+		$themeColor: judge-color('snsnb');
+
+		@include common-theme($themeColor);
+	}
+	// 乐途会
+	.letuhui_weixin{
+		$themeColor: judge-color('letuhui_weixin');
+
+		@include common-theme($themeColor);
+	}
+	// 17huzhu
+	.huzhu17{
+		$themeColor: judge-color('huzhu17');
+
+		@include common-theme($themeColor);
+	}
+	// 飞凡
+	.feifan{
+		$themeColor: judge-color('feifan');
+
+		@include common-theme($themeColor);
+	}
+}

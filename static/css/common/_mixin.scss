@@ -1,0 +1,191 @@
+// rem 基准
+@import "./var.scss";
+$screen-width: 75;
+
+@function rem($px) {
+  	@return $px / $screen-width * 1rem;
+}
+
+@mixin input{
+	border: 0 none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	font-size: rem(14);
+	box-sizing: border-box;
+	outline: none;
+	@include appearance;
+}
+@mixin textarea{
+	border-radius: rem(2);
+	width: 100%;
+	border: 1px solid $colorBorder;
+	padding: rem(10);
+	font-size: rem(13);
+	color: #666;
+	border-radius: rem(2);
+	box-sizing: border-box;
+	@include appearance;
+}
+
+@mixin mask{
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	top: 0;
+	z-index: 9999;
+	background: rgba(0,0,0,.6);
+}
+
+@mixin button{
+	font-size: rem(16);
+	padding: rem(12) 0;
+	color: $colorWhite;
+	background-color: $colorMain;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: middle;
+	cursor: pointer;
+	outline: none;
+	border: 0 none;
+	appearance: none;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-user-select: none;
+	&.disabled{
+		background-color: #cecece;
+	}
+}
+
+@mixin icon{
+  	font-family: "mintui" !important;
+  	font-size: 56px;
+  	font-style: normal;
+  	-webkit-font-smoothing: antialiased;
+  	-webkit-text-stroke-width: 0.2px;
+  	-moz-osx-font-smoothing: grayscale;
+	&.icon-success:before { content: "\E604"; }
+	&.icon-more:before { content: "\E601"; }
+	&.icon-back:before { content: "\E600"; }
+	&.icon-field-error:before { content: "\E605"; }
+	&.icon-field-warning:before { content: "\E608"; }
+	&.icon-success:before { content: "\E602"; }
+	&.icon-field-success:before { content: "\E609"; }
+}
+
+@mixin associate-tip{
+	padding: rem(13) rem(15);
+    color: #999;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+    overflow: hidden;
+    b{
+        color: #1c91e0;
+    }
+    .close{
+        float: right;
+    }
+}
+
+@mixin radio-line{
+	color: #666;
+	font-size: rem(14);
+	padding: rem(6) 0;
+	cursor: pointer;
+	.radio-circle{
+		position: relative;
+		display: inline-block;
+		width: 16px;
+		height: 16px;
+		text-align: center;
+		line-height: 16px;
+		margin-right: rem(10);
+		border: 1px solid $colorBorder;
+		border-radius: 50%;
+		vertical-align: middle;
+		&.cur:after{
+			position: absolute;
+			display: inline-block;
+			content: '';
+			width: 10px;
+			height: 10px;
+			left: 3px;
+			top: 3px;
+			border-radius: 50%;
+			background-color: #1b91e0;
+		}
+	}
+	.radio-msg{
+		vertical-align: middle;
+		color: #666;
+		font-size: rem(14);
+	}
+}
+
+@mixin appearance{
+	-webkit-appearance: none;
+	-webkit-tap-highlight-color: rgba(0,0,0,0)
+}
+
+@mixin center{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+// 医生信息
+@mixin doctor-info{
+	padding: rem(15);
+	background-color: $colorWhite;
+	overflow: hidden;
+	.doctor-title{
+		font-size: rem(16);
+		margin-bottom: rem(5);
+		line-height: rem(21);
+		color: #323232;
+		span{
+			font-size: rem(13);
+			font-weight: normal;
+			padding-left: rem(10);
+		}
+	}
+	.doctor-avatar{
+		width: rem(60);
+		height: rem(60);
+		border: 1px solid #eee;
+		border-radius: 50%;
+	}
+	.doctor-info{
+		font-size: rem(13);
+	}
+	.doctor-label{
+		position: absolute;
+		top: rem(10);
+		right: rem(10);
+		padding: rem(2) rem(5);
+		font-size: rem(12);
+		color: #ffa800;
+		border: 1px solid #ffa800;
+		border-radius: rem(1);
+	}
+}
+@mixin clearfix{
+	&:before,
+	&:after {
+	  content: " ";
+	  display: table;
+	}
+
+	&:after {
+	  clear: both;
+	}
+}
+@mixin line-clamp($line){
+	overflow: hidden;
+ 	text-overflow: ellipsis;
+ 	display: -webkit-box;
+ 	-webkit-line-clamp: $line;
+ 	-webkit-box-orient: vertical;
+}
