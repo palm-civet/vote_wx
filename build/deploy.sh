@@ -21,9 +21,9 @@ cd tmp
 tar -xzvf $APP_NAME-fe.tar.gz || { echo "extract failed"; exit 1; }
 cd ./dist || { echo "extract failed"; exit 1; }
 
-cp -r ./static/* $SERVER_DIR/static/ || { echo "copy static failed"; exit 1; 
+cp -r ./static/* $SERVER_DIR/static/ || { echo "copy static failed"; exit 1; }
 
-cp -r index.html $SERVER_DIR/views/index.blade.php || {  echo "copy html failed"; exit 1;  }
+cp index.html $SERVER_DIR/views/index.blade.php || {  echo "copy html failed"; exit 1;  }
 cd ..
 rm -rf dist || { echo "delete dist failed"; exit 1; }
 rm $APP_NAME-fe.tar.gz || { echo "command failed"; exit 1; }
