@@ -40,6 +40,10 @@ export default {
   height: 100%;
   box-sizing: border-box;
   overflow-y: auto;
+  overflow-x: hidden;
+  img {
+    max-width: 100%;
+  }
   .title {
     text-align: center;
     font-size: 16px;

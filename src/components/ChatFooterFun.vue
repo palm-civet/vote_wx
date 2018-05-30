@@ -2,17 +2,17 @@
   <div class="footer">
     <div class="footer-group">
       <div class="content-area">
-        <input name="" id="" class="content-input" placeholder="写评论..." v-model="content" v-focus="isFocus"></input>
-        <span class="emoji-btn" @click="emojiControl">
+        <input name="" id="" class="content-input" placeholder="写评论..." v-on:focus="hideEmoji" v-model="content" v-focus="isFocus && !emojiTag"></input>
+        <span class="emoji-btn" @click="showEmoji" v-if="emojiTag">
           <img src="~static_img/emoji.png" alt="emoji">
         </span>
-        <!-- <span class="emoji-btn" @click="sendControl">
+        <span class="emoji-btn" @click="hideEmoji" v-else>
           <img src="~static_img/keyboard.png" alt="emoji">
-        </span> -->
+        </span>
       </div>
       <div class="send-btn" @click="postData">发送</div>
     </div>
-    <div class="function-group" v-if="showEmoji">
+    <div class="function-group" v-if="showEmojiList">
       <mt-swipe :auto="0">
         <mt-swipe-item v-for="n in Math.ceil(EXPS.length/24)" :key="n">
           <li v-for="(item, index) in getEmotionData(n,24)" class="face-emoji">
@@ -35,7 +35,8 @@ export default {
   data () {
     return {
       content: '',
-      showEmoji: false,
+      emojiTag: false,
+      showEmojiList: false,
       isFocus: false
     }
   },
@@ -45,8 +46,7 @@ export default {
   methods: {
     postData () {
       if (!this.content.trim().length) return
-      this.showEmoji = false
-      this.isFocus = false
+      this.sendControl()
 
       let timeId = new Date().toLocaleTimeString()
 
@@ -55,6 +55,7 @@ export default {
         comment_content: this.content
       })
 
+      this.content = ''
       let url = `/data/comment/${this.$route.params.activity_id}`
       this.axios.get(url, {
         params: {
@@ -63,7 +64,6 @@ export default {
       }).then((res) => {
         let status = res.status
         let data = res.data
-        this.content = ''
 
         if (status >= 200 && status < 300 && data.success) {
           this.$emit('send-text-success', timeId)
@@ -77,13 +77,20 @@ export default {
         }
       })
     },
-    emojiControl () {
-      this.showEmoji = !this.showEmoji
+    showEmoji () {
+      this.emojiTag = false
       this.isFocus = false
+      this.showEmojiList = true
+    },
+    hideEmoji () {
+      this.emojiTag = true
+      this.isFocus = true
+      this.showEmojiList = false
     },
     sendControl () {
-      this.showEmoji = false
+      this.emojiTag = true
       this.isFocus = true
+      this.showEmojiList = false
     },
     getEmotionData (pageNow, pageSize) {
       return this.EXPS.slice((pageNow - 1) * pageSize, pageSize * pageNow)
@@ -135,8 +142,8 @@ export default {
   }
   .content-input {
     display: inline-block;
-    height: rem(70);
-    line-height: rem(70);
+    height: rem(40);
+    padding: rem(15) 0;
     font-size: rem(28);
     padding: 0;
     text-indent: rem(15);

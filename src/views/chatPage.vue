@@ -20,7 +20,7 @@
                     <div class="content" v-html="replaceFace(item.comment_content)"></div>
                   </div>
                   <div class="avantar-wrap">
-                    <img v-if="item.user_avatar" :src="item.user_avatar" alt="用户头像" class="avantar">
+                    <img v-if="item.user_avatar" :src="item.userAvatar" alt="用户头像" class="avantar">
                   </div>
               </li>
             </template>
@@ -41,7 +41,7 @@
   </div>
 </template>
 <script>
-import { Toast, Loadmore, Spinner } from 'mint-ui'
+import { Loadmore, Spinner } from 'mint-ui'
 import ChatFooterFun from '@/components/ChatFooterFun'
 import Polling from 'static_js/polling'
 
@@ -54,6 +54,8 @@ export default {
   data () {
     return {
       EXPS: [],
+      userAvatar: '',
+      userName: '',
       polling: {},
       loadOld: false,
       isSending: false,
@@ -68,13 +70,12 @@ export default {
     }
   },
   created () {
+    // 加载聊天内容
+    this.loadIintData()
     // 加载emoji文件
     this.loadEmojiData()
-    this.loadNewData()
-    this.polling = new Polling({
-      pollFunc: this.loadNewData.bind(this),
-      interval: 5000
-    })
+    // 加载用户数据
+    this.loadUserData()
   },
   methods: {
     handleTopChange () {
@@ -84,6 +85,44 @@ export default {
     loadTop () {
       this.loadOldData() // 上拉触发的分页查询
       this.$refs.loadmore.onTopLoaded() // 固定方法，查询完要调用一次，用于重新定位
+    },
+    loadUserData () {
+      let USER_URL = '/data/userinfo/'
+
+      this.axios.get(USER_URL).then((res) => {
+        let status = res.status
+        let data = res.data
+
+        if (status >= 200 && status < 300 && data.success) {
+          this.userName = data.data.user_name
+          this.userAvatar = data.data.user_avatar
+        } else {
+          console.log('用户数据获取失败')
+        }
+      })
+    },
+    loadIintData () {
+      let INIT_URL = `/data/comment/newest/${this.$route.params.activity_id}`
+
+      this.axios.get(INIT_URL).then((res) => {
+        let status = res.status
+        let data = res.data
+
+        if (status >= 200 && status < 300 && data.success) {
+          let list = data.data
+          if (list.length) {
+            this.chatList.push(...list)
+            this.lastQaId = list[list.length - 1].id
+            this.firstQaId = this.chatList[0].id
+          }
+          this.polling = new Polling({
+            pollFunc: this.loadNewData,
+            interval: 5000
+          })
+        } else {
+          console.log('数据初始化失败')
+        }
+      })
     },
     loadNewData () {
       if (this.polling.isPolling) return
@@ -189,10 +228,13 @@ export default {
     chatList () {
       if (this.loadOld) return
       this.$nextTick(() => {
-        console.log('scroll')
         let container = this.$el.querySelector('#chatContainer')
         container.scrollTop = container.scrollHeight
       })
+    },
+    $route (res) {
+      let container = this.$el.querySelector('#chatContainer')
+      container.scrollTop = container.scrollHeight
     }
   }
 }
@@ -231,7 +273,7 @@ export default {
   .name {
     color: #666;
     font-size: rem(24);
-
+    margin-bottom: rem(10);
   }
   .content {
     display: inline-block;
@@ -242,7 +284,6 @@ export default {
     background-color: #fff;
     color: #333;
     border-radius: 6px;
-    margin-top: rem(15);
     word-break: break-all;
     &:before {
       content: '';
@@ -259,6 +300,9 @@ export default {
     .detail-wrap {
       margin-left: 0;
       margin-right: rem(26);
+    }
+    .content {
+      text-align: left;
     }
     .content:before {
       content: '';

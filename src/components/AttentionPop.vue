@@ -2,9 +2,9 @@
   <div class="pop-wrap">
     <div class="overlay"></div>
     <div class="pop-container">
-      <div class="title">长按二维码关注{{detail.title || '本次活动'}}</div>
+      <div class="title">长按二维码关注{{detail.public_name || '本次活动'}}</div>
       <div class="qr-code-wrap">
-        <img class="qr-code" :src="detail.public_img || 'http://upload.xiangbojiubo.com/Fu3Vx8VDv51ZYS_rw5re_v_YwzKI?imageView2/2/w/414'" alt="二维码">
+        <img class="qr-code" :src="`http://za.jupiter.xin/uploads/${detail.public_img}`" alt="二维码">
       </div>
       <div class="close-btn" @click="closePop">关闭</div>
     </div>
