@@ -31,7 +31,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~static_css/common/var';
 @import '~static_css/common/mixin';
 .page-detail-container {
@@ -42,7 +42,7 @@ export default {
   overflow-y: auto;
   overflow-x: hidden;
   img {
-    max-width: 100%;
+    max-width: 100%!important;;
   }
   .title {
     text-align: center;
