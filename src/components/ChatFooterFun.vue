@@ -137,6 +137,7 @@ export default {
     display: inline-block;
     height: rem(70);
     line-height: rem(70);
+    font-size: rem(28);
     padding: 0;
     text-indent: rem(15);
     box-sizing: border-box;

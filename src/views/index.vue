@@ -1,5 +1,6 @@
 <template>
 <div class="container">
+  <AttentionPop v-if="popShowTag" @pop-hide="popHide"></AttentionPop>
   <div class="top">
     <Banner class="banner"></Banner>
     <Tab class="tab"></Tab>
@@ -14,15 +15,18 @@
 <script>
 import Banner from '@/components/Banner'
 import Tab from '@/components/Tab'
+import AttentionPop from '@/components/AttentionPop'
 import { Toast } from 'mint-ui'
 
 export default {
   components: {
     Banner,
-    Tab
+    Tab,
+    AttentionPop
   },
   data () {
     return {
+      popShowTag: true,
       list: []
     }
   },
@@ -40,6 +44,11 @@ export default {
         })
       }
     })
+  },
+  methods: {
+    popHide () {
+      this.popShowTag = false
+    }
   }
 }
 </script>

@@ -52,7 +52,6 @@ export default {
   span {
     flex: 1;
     text-align: center;
-    @include line-clamp(1);
   }
   .rank {
     color: transparent;

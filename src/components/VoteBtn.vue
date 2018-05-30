@@ -1,6 +1,5 @@
 <template>
-  <button class="btn" :class="smallSize ? 'small' : ''" v-if="!voted" @click="vote"><i class="vote-icon"></i>为Ta点赞</button>
-  <button class="btn disabled" :class="smallSize ? 'small' : ''"  v-else>已点赞</button>
+  <button class="btn" :class="smallSize ? 'small' : ''" @click="vote"><i class="vote-icon"></i>为Ta点赞</button>
 </template>
 <script>
 import { Toast } from 'mint-ui'
@@ -20,9 +19,13 @@ export default {
         let status = res.status
         if (status >= 200 && status < 300 && res.data.success) {
           this.voted = true
+          Toast({
+            message: '投票成功',
+            duration: 1500
+          })
         } else {
           Toast({
-            message: '列表加载失败，稍后重试',
+            message: res.data.message || '投票失败',
             duration: 1500
           })
         }

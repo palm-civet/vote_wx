@@ -1,31 +1,30 @@
 <template>
-<div class="page-container">
-  <AttentionPop v-if="!popShowTag" @pop-hide="popHide"></AttentionPop>
+<div class="page-vote-container">
   <ul class="tab-wrap">
     <li class="tab" :class="active == 0 ? 'active' : ''" @click="changeTab(0)">全部选手</li>
     <li class="tab" :class="active == 1 ? 'active' : ''" @click="changeTab(1)">人气排行</li>
   </ul>
-  <keep-alive>
-    <!--参赛选手列表-->
-    <template v-if="active == 0">
-      <PlayerCard v-if="showPlayerDetail" :cardData="playerDetailData" @hide-card="hideCard"></PlayerCard>
-      <div v-else>
-        <div
-          class="player-list"
-          v-infinite-scroll="getList"
-          infinite-scroll-distance="10"
-          infinite-scroll-disabled="hasNoPage">
-          <PlayerCard :cardData="item" v-for="item in list"  :smallCard="true" @show-card="showCard"></PlayerCard>
-          <Spinner type="fading-circle" color="#1c91e0" :isShow="isLoading"></Spinner>
-        </div>
-        <div class="cyui-loadmore cyui-loadmore_line" v-show="hasNoPage">
-          <span class="cyui-loadmore__tips">&diams; 到底了 &diams;</span>
-        </div>
+
+  <!--参赛选手列表-->
+  <template v-if="active == 0">
+    <PlayerCard v-if="showPlayerDetail" :cardData="playerDetailData" @hide-card="hideCard"></PlayerCard>
+    <div v-else>
+      <div
+        class="player-list"
+        v-infinite-scroll="getList"
+        infinite-scroll-distance="10"
+        infinite-scroll-disabled="hasNoPage">
+        <PlayerCard :cardData="item" v-for="item in list"  :smallCard="true" @show-card="showCard"></PlayerCard>
+        <Spinner type="fading-circle" color="#1c91e0" :isShow="isLoading"></Spinner>
       </div>
-    </template>
-    <!--投票排名列表-->
-    <RankList v-else-if="active == 1"></RankList>
-  </keep-alive>
+      <div class="cyui-loadmore cyui-loadmore_line" v-show="hasNoPage">
+        <span class="cyui-loadmore__tips">&diams; 到底了 &diams;</span>
+      </div>
+    </div>
+  </template>
+  <!--投票排名列表-->
+  <RankList v-else-if="active == 1"></RankList>
+
 </div>
 </template>
 <script>
@@ -33,7 +32,6 @@ import Vue from 'vue'
 import Tab from '@/components/Tab'
 import PlayerCard from '@/components/PlayerCard'
 import RankList from '@/components/RankList'
-import AttentionPop from '@/components/AttentionPop'
 import { Toast, InfiniteScroll } from 'mint-ui'
 import Spinner from '@/components/base/Spinner'
 
@@ -44,13 +42,11 @@ export default {
     PlayerCard,
     RankList,
     Tab,
-    Spinner,
-    AttentionPop
+    Spinner
   },
   data () {
     return {
       playerData: null,
-      popShowTag: true,
       active: 0,
       playerDetailData: null,
       showPlayerDetail: null,
@@ -104,9 +100,6 @@ export default {
           })
         }
       })
-    },
-    popHide () {
-      this.popShowTag = false
     }
   }
 }
@@ -114,10 +107,12 @@ export default {
 <style lang="scss">
 @import '~static_css/common/var';
 @import '~static_css/common/mixin';
-  .page-container {
+  .page-vote-container {
     background-color: #0D43A8;
+    height: 100%;
+    overflow-y: auto;
     padding: rem(34) rem(20);
-    min-height: 100%;
+    box-sizing: border-box;
   }
   .player-list {
     overflow: hidden;
@@ -161,7 +156,8 @@ export default {
     }
     &.active {
       color: #fff;
-      background-color: $colorRed;
+      background: url(~static_img/btn_red.jpg) no-repeat center;
+      background-size: 100% 100%;
     }
   }
 </style>

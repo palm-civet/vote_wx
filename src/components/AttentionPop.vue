@@ -4,7 +4,7 @@
     <div class="pop-container">
       <div class="title">长按二维码关注{{detail.title || '本次活动'}}</div>
       <div class="qr-code-wrap">
-        <img class="qr-code" :src="detail.public_img" alt="二维码">
+        <img class="qr-code" :src="detail.public_img || 'http://upload.xiangbojiubo.com/Fu3Vx8VDv51ZYS_rw5re_v_YwzKI?imageView2/2/w/414'" alt="二维码">
       </div>
       <div class="close-btn" @click="closePop">关闭</div>
     </div>
@@ -51,7 +51,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 11;
+  z-index: 1111;
 }
 .overlay {
   position: absolute;
@@ -79,7 +79,7 @@ export default {
   }
   .qr-code-wrap {
     position: relative;
-    margin: rem(30);
+    margin: rem(30) rem(30) rem(20);
     width: rem(388);
     height: rem(388);
     img {

@@ -1,5 +1,5 @@
 <template>
-  <div class="page-container">
+  <div class="page-detail-container">
     <div class="title" v-html="detail.title"></div>
     <div class="content" v-html="detail.detail"></div>
   </div>
@@ -23,7 +23,7 @@ export default {
         this.detail = data.data[0] || {}
       } else {
         Toast({
-          message: '列表加载失败，稍后重试',
+          message: '数据加载失败',
           duration: 1500
         })
       }
@@ -34,11 +34,12 @@ export default {
 <style lang="scss" scoped>
 @import '~static_css/common/var';
 @import '~static_css/common/mixin';
-.page-container {
+.page-detail-container {
   background: #E8E8E8;
   padding: rem(30);
-  min-height: 100%;
+  height: 100%;
   box-sizing: border-box;
+  overflow-y: auto;
   .title {
     text-align: center;
     font-size: 16px;

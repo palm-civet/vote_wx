@@ -1,5 +1,5 @@
 <template>
-  <div class="page-container">
+  <div class="page-chat-container">
       <div class="chat-win" id="chatContainer">
         <Loadmore :top-method="loadTop" :auto-fill="false" ref="loadmore" @top-status-change="handleTopChange">
           <ul class="chat-list">
@@ -102,21 +102,18 @@ export default {
         // 继续轮询
         this.polling.isPolling = false
         this.polling.startPolling()
-        this.replaceSendingText()
 
         if (status >= 200 && status < 300 && data.success) {
           let list = data.data
           if (!list.length) {
             return
           }
+          this.replaceSendingText()
           this.chatList.push(...list)
           this.lastQaId = list[list.length - 1].id
           this.firstQaId = this.chatList[0].id
         } else {
-          Toast({
-            message: '列表加载失败，稍后重试',
-            duration: 1500
-          })
+          console.log('数据加载失败')
         }
       })
     },
@@ -140,10 +137,7 @@ export default {
           this.firstQaId = this.chatList[0].id
           this.loadOld = true
         } else {
-          Toast({
-            message: '列表加载失败，稍后重试',
-            duration: 1500
-          })
+          console.log('数据加载失败')
         }
       })
     },
@@ -162,17 +156,9 @@ export default {
     },
     replaceSendingText () {
       // 清除发送成功的预览数据
-      let newList = [...this.chatList]
-
-      this.chatList.forEach((v, i) => {
-        if (v.is_preview && this.sendSucList.length && this.sendSucList.indexOf(v.timeId > -1)) {
-          newList.splice(i, 1)
-        } else if (v.is_preview) {
-          console.log(i)
-          newList.splice(i, 1)
-        }
+      this.chatList = this.chatList.filter(v => {
+        return !v.is_preview || !this.sendSucList.includes(v.timeId)
       })
-      this.chatList = newList
     },
     sendTextSuc (timeId) {
       this.isSending = false
@@ -203,6 +189,7 @@ export default {
     chatList () {
       if (this.loadOld) return
       this.$nextTick(() => {
+        console.log('scroll')
         let container = this.$el.querySelector('#chatContainer')
         container.scrollTop = container.scrollHeight
       })
@@ -213,7 +200,7 @@ export default {
 <style lang="scss" scoped>
 @import '~static_css/common/var';
 @import '~static_css/common/mixin';
-.page-container {
+.page-chat-container {
   height: 100%;
   overflow: hidden;
   background-color: #E8E8E8;
@@ -224,15 +211,15 @@ export default {
   -webkit-overflow-scrolling: touch;
   .chat-list {
     margin-bottom: rem(100);
-    padding: rem(36);
+    padding: rem(20);
   }
   .msg-wrap {
     margin-bottom: rem(30);
     display: flex;
   }
   .avantar {
-    width: rem(120);
-    height: rem(120);
+    width: rem(100);
+    height: rem(100);
     border-radius: 6px;
   }
   .detail-wrap {

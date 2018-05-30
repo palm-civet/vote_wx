@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <mt-swipe :auto="0" class="banner-wrap">
+  <div class="banner-wrap">
+    <mt-swipe :auto="4000">
       <mt-swipe-item  class="banner-item" v-for="item in list">
         <a :href="item.href ? item.href : 'javascript:void(0)'">
           <img class="banner" :src="`http://za.jupiter.xin/uploads/${item.img}`" alt="图片">
@@ -31,7 +31,7 @@ export default {
         this.list = data.data
       } else {
         Toast({
-          message: '列表加载失败，稍后重试',
+          message: '广告数据加载失败',
           duration: 1500
         })
       }
