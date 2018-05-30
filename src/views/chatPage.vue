@@ -20,7 +20,7 @@
                     <div class="content" v-html="replaceFace(item.comment_content)"></div>
                   </div>
                   <div class="avantar-wrap">
-                    <img v-if="item.user_avatar" :src="item.userAvatar" alt="用户头像" class="avantar">
+                    <img v-if="item.user_avatar" :src="item.user_avatar" class="avantar">
                   </div>
               </li>
             </template>
@@ -96,6 +96,7 @@ export default {
         if (status >= 200 && status < 300 && data.success) {
           this.userName = data.data.user_name
           this.userAvatar = data.data.user_avatar
+          console.log(this.userAvatar)
         } else {
           console.log('用户数据获取失败')
         }
@@ -168,7 +169,7 @@ export default {
         let data = res.data
 
         if (status >= 200 && status < 300 && data.success) {
-          let list = data.data.data
+          let list = data.data
           if (!list.length) {
             return
           }
@@ -190,7 +191,8 @@ export default {
         is_preview: true,
         timeId: data.timeId,
         comment_content: data.comment_content,
-        self: true
+        self: true,
+        user_avatar: this.userAvatar
       })
     },
     replaceSendingText () {

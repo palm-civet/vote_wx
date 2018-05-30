@@ -55,7 +55,6 @@ export default {
         comment_content: this.content
       })
 
-      this.content = ''
       let url = `/data/comment/${this.$route.params.activity_id}`
       this.axios.get(url, {
         params: {
@@ -64,6 +63,7 @@ export default {
       }).then((res) => {
         let status = res.status
         let data = res.data
+        this.content = ''
 
         if (status >= 200 && status < 300 && data.success) {
           this.$emit('send-text-success', timeId)
