@@ -49,7 +49,6 @@ export default {
     font-size: 16px;
     font-weight: bold;
     margin: rem(10) 0 rem(30);
-    @include line-clamp(2);
   }
   .content {
     font-size: 14px;
