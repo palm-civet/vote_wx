@@ -46,7 +46,7 @@ export default {
   methods: {
     postData () {
       if (!this.content.trim().length) return
-      // this.sendControl()
+      this.sendControl()
 
       let timeId = new Date().toLocaleTimeString()
 
