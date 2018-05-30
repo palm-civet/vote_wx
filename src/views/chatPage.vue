@@ -44,6 +44,7 @@
 import { Loadmore, Spinner } from 'mint-ui'
 import ChatFooterFun from '@/components/ChatFooterFun'
 import Polling from 'static_js/polling'
+import { EXPS } from 'static/emojiDB.json'
 
 export default {
   components: {
@@ -53,7 +54,7 @@ export default {
   },
   data () {
     return {
-      EXPS: [],
+      EXPS: EXPS,
       userAvatar: '',
       userName: '',
       polling: {},
@@ -72,8 +73,6 @@ export default {
   created () {
     // 加载聊天内容
     this.loadIintData()
-    // 加载emoji文件
-    this.loadEmojiData()
     // 加载用户数据
     this.loadUserData()
   },
@@ -208,19 +207,13 @@ export default {
     sendTextErr (timeId) {
       this.sendErrList.push(timeId)
     },
-    loadEmojiData () {
-      this.axios.get('/static/emojiDB.json').then((res) => {
-        res = res.data
-        var json = eval('(' + res + ')')
-        this.EXPS = json.EXPS.slice(0)
-      })
-    },
     replaceFace (con) {
       if (!con) return
       if (con.toString().indexOf('[') > -1) {
         var exps = this.EXPS
         for (var i = 0; i < exps.length; i++) {
-          con = con.replace(exps[i].title, '<img src="' + exps[i].file + '"  alt="" />')
+          let reg = new RegExp(`\\[${exps[i].title.replace(/(\[|\])/g, '')}\\]`, 'g')
+          con = con.replace(reg, '<img src="' + exps[i].file + '"  alt="" />')
         }
       }
       return con
