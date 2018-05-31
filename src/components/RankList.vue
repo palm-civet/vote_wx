@@ -7,7 +7,7 @@
         <span>点赞数</span>
       </dt>
       <dd class="line" v-for="(item, index) in list" :key="index">
-          <span :class="index < 3 ? 'rank rank' + index : ''">{{index}}</span>
+          <span :class="index < 3 ? 'rank rank' + index : ''">{{index + 1}}</span>
           <span>{{item.name}}</span>
           <span>{{item.count}}</span>
       </dd>
