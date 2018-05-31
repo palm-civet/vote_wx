@@ -46,7 +46,7 @@ export default {
 @import '~static_css/common/mixin';
 .rank-list {
   width: rem(710);
-  height: rem(765);
+  min-height: rem(765);
   background: #fff;
   border-radius: 6px;
   span {
