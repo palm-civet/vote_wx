@@ -49,6 +49,7 @@ export default {
   min-height: rem(765);
   background: #fff;
   border-radius: 6px;
+  border: 0;
   span {
     flex: 1;
     text-align: center;
@@ -75,6 +76,8 @@ export default {
   color: $colorMain;
   background-color: #E8F0FF;
   display: flex;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
 }
 .line {
   height: rem(81);
