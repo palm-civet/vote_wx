@@ -116,12 +116,9 @@ export default {
 @import '~static_css/common/var';
 @import '~static_css/common/mixin';
 .footer {
-  position: absolute;
   width: 100%;
   padding: rem(15) 0;
   background: rgba(255, 255, 255, .9);
-  left: 0;
-  bottom: 0;
   z-index: 1;
   .footer-group {
     display: flex;

@@ -1,7 +1,7 @@
 <template>
   <div class="page-chat-container">
       <div class="chat-win" id="chatContainer" :style="{'-webkit-overflow-scrolling': scrollMode}">
-        <Loadmore :top-method="loadTop" :auto-fill="false" ref="loadmore" @top-status-change="handleTopChange">
+        <Loadmore :top-method="loadTop" :auto-fill="false" ref="loadmore" :top-pull-text="pullText" :top-drop-text="pullText" :top-loading-text="loadingText">
           <ul class="chat-list">
             <template  v-for="item in chatList">
               <!--other-->
@@ -25,12 +25,6 @@
               </li>
             </template>
           </ul>
-          <div slot="top" class="mint-loadmore-top">
-            <span v-show="topStatus !== 'loading'" :class="{ 'is-rotate': topStatus === 'drop' }">加载历史记录</span>
-            <span v-show="topStatus === 'loading'">
-              <Spinner type="snake"></Spinner>
-            </span>
-          </div>
         </Loadmore>
       </div>
       <ChatFooterFun
@@ -65,7 +59,7 @@ export default {
       chatList: [],
       topStatus: '',
       lastQaId: 0,
-      firstQaId: null,
+      firstQaId: 0,
       allLoaded: false, // 是否可以上拉属性，false可以上拉，true为禁止上拉，就是不让往上划加载数据了
       scrollMode: 'touch' // 移动端弹性滚动效果，touch为弹性滚动，auto是非弹性滚动
     }
@@ -76,8 +70,16 @@ export default {
     // 加载用户数据
     this.loadUserData()
   },
+  computed: {
+    pullText () {
+      return this.firstQaId === 0 ? '已经到头了' : '加载历史数据'
+    },
+    loadingText () {
+      return this.firstQaId === 0 ? '' : '加载中'
+    }
+  },
   methods: {
-    handleTopChange () {
+    handleTopChange (status) {
       this.topStatus = status
     },
     // 上拉加载
@@ -162,6 +164,7 @@ export default {
       let OLD_URL = `/data/comment/up/${this.$route.params.activity_id}`
       this.scrollMode = 'auto'
 
+      if(this.firstQaId === 0) return
       this.axios.get(OLD_URL, {
         params: {
           id: this.firstQaId
@@ -247,11 +250,14 @@ export default {
   height: 100%;
   overflow: hidden;
   background-color: #E8E8E8;
+  display: flex;
+  flex-direction: column;
 }
 .chat-win {
-  height: 100%;
+  flex: 1;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+
   .chat-list {
     margin-bottom: rem(100);
     padding: rem(20);
@@ -259,6 +265,9 @@ export default {
   .msg-wrap {
     margin-bottom: rem(30);
     display: flex;
+  }
+  .mint-loadmore {
+    min-height: 100%;
   }
   .avantar {
     width: rem(100);
