@@ -11,14 +11,18 @@ export default new Router({
   mode: 'history',
   scrollBehavior: () => ({ y: 0 }),
   routes: [
-    { path: '/', name: 'index', component: index,
+    { path: '/',
+      name: 'index',
+      component: index,
       children: [{
         path: 'v_vote/:activity_id',
         component: VotePage
-      },{
+      },
+      {
         path: 'v_chat/:activity_id',
         component: ChatPage
-      },{
+      },
+      {
         path: 'v_detail/:activity_id',
         component: DetailPage
       }]

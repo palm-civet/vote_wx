@@ -240,6 +240,7 @@ export default {
 @import '~static_css/common/var';
 @import '~static_css/common/mixin';
 .page-chat-container {
+  position: relative;
   height: 100%;
   overflow: hidden;
   background-color: #E8E8E8;
