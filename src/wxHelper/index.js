@@ -27,7 +27,7 @@ export default class WxHelper {
       }
     })
   }
-  weixinShareParamsSet (wx, opt) {
+  weixinShareParamsSet (opt) {
 
     var img = opt.img
     var link = opt.link
