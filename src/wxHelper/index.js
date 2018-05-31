@@ -5,9 +5,9 @@ export default class WxHelper {
   constructor() {
     this.config = {}
   }
-  getConfig(url = this.URL) {
+  getConfig(url) {
     console.log(url)
-    axios.get(this.URL).then((res) => {
+    axios.get(url).then((res) => {
       let status = res.status
       let data = res.data
 
