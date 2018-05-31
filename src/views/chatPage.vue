@@ -72,10 +72,10 @@ export default {
   },
   computed: {
     pullText () {
-      return this.firstQaId === 0 ? '已经到头了' : '加载历史数据'
+      return this.allLoaded ? '已经到头了' : '加载历史数据'
     },
     loadingText () {
-      return this.firstQaId === 0 ? '' : '加载中'
+      return this.allLoaded ? '' : '加载中'
     }
   },
   methods: {
@@ -162,9 +162,9 @@ export default {
     },
     loadOldData () {
       let OLD_URL = `/data/comment/up/${this.$route.params.activity_id}`
-      this.scrollMode = 'auto'
-
       if (this.allLoaded) return
+
+      this.scrollMode = 'auto'
       this.axios.get(OLD_URL, {
         params: {
           id: this.firstQaId
