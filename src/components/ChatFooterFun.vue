@@ -47,23 +47,23 @@ export default {
     postData () {
       if (!this.content.trim().length) return
       this.sendControl()
-
       let timeId = new Date().toLocaleTimeString()
+      let postContent = this.content
+      this.content = ''
 
       this.$emit('send-text', {
         timeId: timeId,
-        comment_content: this.content
+        comment_content: postContent
       })
 
       let url = `/data/comment/${this.$route.params.activity_id}`
       this.axios.get(url, {
         params: {
-          content: this.content
+          content: postContent
         }
       }).then((res) => {
         let status = res.status
         let data = res.data
-        this.content = ''
 
         if (status >= 200 && status < 300 && data.success) {
           this.$emit('send-text-success', timeId)

@@ -56,10 +56,26 @@ export default {
   background-color: #0D43A8;
   display: flex;
   width: 100%;
+  z-index: 11;
+  position: relative;
   li {
     flex: 1;
     text-align: center;
     font-size: rem(30);
+    &.active {
+      position: relative;
+      &:before {
+        content: '';
+        display: inline-block;
+        width: 100%;
+        height: rem(9);
+        position: absolute;
+        top: rem(-9);
+        left: 0;
+        background: url(~static_img/tab_bar.jpg) no-repeat center;
+        background-size: 100% 100%;
+      }
+    }
     &:not(.active) {
       background:-webkit-gradient(linear, 0 0, 0 bottom, from(#073793), to((#002C7E)));
     }

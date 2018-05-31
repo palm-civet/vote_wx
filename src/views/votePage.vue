@@ -89,9 +89,10 @@ export default {
           let list = data.data.data
           let length = list.length
 
-          if (!length || length < 20) {
+          if (!data.data.next_page_url) {
             this.hasNoPage = true
           }
+          if (!length) return
           this.list.push(...list)
         } else {
           Toast({

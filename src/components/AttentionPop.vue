@@ -27,6 +27,13 @@ export default {
 
       if (status >= 200 && status < 300 && data.success) {
         this.detail = data.data[0] || {}
+        this.wxHelper.wxShare({
+          img: `http://za.jupiter.xin/uploads/${this.detail.cover}`,
+          title: this.detail.title,
+          desc: this.detail.abstract,
+          link: window.location.href
+        })
+        console.log(this.wxHelper)
       } else {
         Toast({
           message: '列表加载失败，稍后重试',

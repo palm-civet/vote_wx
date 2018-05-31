@@ -6,7 +6,10 @@ import router from './router'
 import VueTouch from 'vue-touch'
 import 'mint-ui/lib/style.css'
 import axios from 'axios'
+import WxHelper from './wxHelper/index'
+
 Vue.prototype.axios = axios
+Vue.prototype.wxHelper = new WxHelper()
 
 require('es6-promise').polyfill()
 
