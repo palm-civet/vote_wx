@@ -164,7 +164,7 @@ export default {
       let OLD_URL = `/data/comment/up/${this.$route.params.activity_id}`
       this.scrollMode = 'auto'
 
-      if(this.firstQaId === 0) return
+      if (this.allLoaded) return
       this.axios.get(OLD_URL, {
         params: {
           id: this.firstQaId
@@ -178,6 +178,7 @@ export default {
         if (status >= 200 && status < 300 && data.success) {
           let list = data.data
           if (!list.length) {
+            this.allLoaded = true
             return
           }
           this.chatList.unshift(...list)
