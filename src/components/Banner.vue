@@ -1,5 +1,5 @@
 <template>
-  <div class="banner-wrap">
+  <div class="banner-wrap" v-if="list.length">
     <mt-swipe :auto="4000">
       <mt-swipe-item  class="banner-item" v-for="item in list">
         <a :href="item.href ? item.href : 'javascript:void(0)'">
