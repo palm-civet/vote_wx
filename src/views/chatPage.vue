@@ -1,6 +1,6 @@
 <template>
   <div class="page-chat-container">
-      <div class="chat-win" id="chatContainer">
+      <div class="chat-win" id="chatContainer" :style="{'-webkit-overflow-scrolling': scrollMode}">
         <Loadmore :top-method="loadTop" :auto-fill="false" ref="loadmore" @top-status-change="handleTopChange">
           <ul class="chat-list">
             <template  v-for="item in chatList">
@@ -66,8 +66,8 @@ export default {
       topStatus: '',
       lastQaId: 0,
       firstQaId: null,
-      allLoaded: false // 是否可以上拉属性，false可以上拉，true为禁止上拉，就是不让往上划加载数据了
-      // scrollMode: 'auto' // 移动端弹性滚动效果，touch为弹性滚动，auto是非弹性滚动
+      allLoaded: false, // 是否可以上拉属性，false可以上拉，true为禁止上拉，就是不让往上划加载数据了
+      scrollMode: 'touch' // 移动端弹性滚动效果，touch为弹性滚动，auto是非弹性滚动
     }
   },
   created () {
@@ -160,6 +160,7 @@ export default {
     },
     loadOldData () {
       let OLD_URL = `/data/comment/up/${this.$route.params.activity_id}`
+      this.scrollMode = 'auto'
 
       this.axios.get(OLD_URL, {
         params: {
@@ -168,7 +169,9 @@ export default {
       }).then((res) => {
         let status = res.status
         let data = res.data
-
+        this.$nextTick(function () {
+          this.scrollMode = 'touch'
+        })
         if (status >= 200 && status < 300 && data.success) {
           let list = data.data
           if (!list.length) {
