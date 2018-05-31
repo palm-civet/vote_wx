@@ -119,6 +119,8 @@ export default {
             pollFunc: this.loadNewData,
             interval: 5000
           })
+          // 开始轮询
+          this.polling.startPolling()
         } else {
           console.log('数据初始化失败')
         }
