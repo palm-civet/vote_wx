@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-  <AttentionPop v-if="popShowTag" @pop-hide="popHide"></AttentionPop>
+  <AttentionPop v-if="popShowTag && pageData.public_img" :pageData="pageData" @pop-hide="popHide"></AttentionPop>
   <div class="top">
     <Banner class="banner"></Banner>
     <Tab class="tab"></Tab>
@@ -27,27 +27,47 @@ export default {
   data () {
     return {
       popShowTag: true,
-      list: []
+      pageData: {}
     }
   },
   created () {
-    let url = `/data/ads/${this.$route.params.activity_id}`
-    this.axios.get(url).then((res) => {
-      let status = res.status
-      let data = res.data
-      if (status >= 200 && status < 300) {
-        this.list = data.data.data
-      } else {
-        Toast({
-          message: '列表加载失败，稍后重试',
-          duration: 1500
-        })
-      }
-    })
+    this.getInitData()
   },
   methods: {
     popHide () {
       this.popShowTag = false
+    },
+    getInitData () {
+      let url = `/data/activity/${this.$route.params.activity_id}`
+
+      this.axios.get(url).then((res) => {
+        let status = res.status
+        let data = res.data
+
+        if (status >= 200 && status < 300 && data.success) {
+          this.pageData = data.data[0] || {}
+          document.title = this.pageData.title
+          this.setShare()
+        } else {
+          Toast({
+            message: '列表加载失败，稍后重试',
+            duration: 1500
+          })
+        }
+      })
+    },
+    setShare () {
+      this.wxHelper.wxShare({
+        img: `http://za.jupiter.xin/uploads/${this.pageData.cover}`,
+        title: this.pageData.title,
+        desc: this.pageData.abstract,
+        link: window.location.href
+      })
+    }
+  },
+  watch: {
+    $route (res) {
+      this.setShare()
     }
   }
 }

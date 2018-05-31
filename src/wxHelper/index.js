@@ -3,11 +3,10 @@ import wx from 'weixin-js-sdk'
 
 export default class WxHelper {
   constructor() {
-    this.URL = '/data/jssdk/'
     this.config = {}
-    this.getConfig()
   }
-  getConfig() {
+  getConfig(url = this.URL) {
+    console.log(url)
     axios.get(this.URL).then((res) => {
       let status = res.status
       let data = res.data
@@ -76,8 +75,12 @@ export default class WxHelper {
     })
   }
   wxShare (opt) {
+    let URL = '/data/jssdk/?url=' + encodeURIComponent(window.location.href.split('#')[0])
+
     opt = opt || {}
     opt = Object.assign({}, opt)
+    this.getConfig(URL)
+
     wx.ready(() => {
       this.weixinShareParamsSet(opt)
     })
