@@ -135,12 +135,14 @@ export default {
   .content-area {
     flex: 1;
     background-color: #E8E8E8;
+    height: rem(40);
+    padding: rem(15) 0;
     margin-left: rem(15);
   }
   .content-input {
     display: inline-block;
-    height: rem(40);
-    padding: rem(15) 0;
+    // height: rem(40);
+    // padding: rem(15) 0;
     font-size: rem(28);
     padding: 0;
     text-indent: rem(15);
