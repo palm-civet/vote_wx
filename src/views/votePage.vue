@@ -1,8 +1,8 @@
 <template>
 <div class="page-vote-container">
   <ul class="tab-wrap">
-    <li class="tab" :class="active == 0 ? 'active' : ''" @click="changeTab(0)">全部选手</li>
-    <li class="tab" :class="active == 1 ? 'active' : ''" @click="changeTab(1)">人气排行</li>
+    <li class="vote-tab" :class="active == 0 ? 'active' : ''" @click="changeTab(0)">全部选手</li>
+    <li class="vote-tab" :class="active == 1 ? 'active' : ''" @click="changeTab(1)">人气排行</li>
   </ul>
 
   <!--参赛选手列表-->
@@ -142,7 +142,7 @@ export default {
   .tab-wrap {
     margin-bottom: rem(34);
   }
-  .tab {
+  .vote-tab {
     display: inline-block;
     width: rem(350);
     height: rem(70);
