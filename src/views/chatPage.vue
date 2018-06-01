@@ -258,9 +258,7 @@ export default {
   flex: 1;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-
   .chat-list {
-    margin-bottom: rem(100);
     padding: rem(20);
   }
   .msg-wrap {

@@ -141,13 +141,11 @@ export default {
   }
   .content-input {
     display: inline-block;
-    // height: rem(40);
-    // padding: rem(15) 0;
     font-size: rem(28);
     padding: 0;
+    height: 100%;
     text-indent: rem(15);
     box-sizing: border-box;
-    height: 100%;
     width: rem(470);
     background-color: transparent;
     border: 0;
