@@ -248,7 +248,11 @@ export default {
 @import '~static_css/common/mixin';
 .page-chat-container {
   position: relative;
-  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   overflow: hidden;
   background-color: #E8E8E8;
   display: flex;
