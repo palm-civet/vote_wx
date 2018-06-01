@@ -81,7 +81,8 @@ export default {
 }
 .content-wrap {
   position: relative;
-  flex: 1;
+  flex: auto;
+  height: 100%;
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
 }
