@@ -109,9 +109,13 @@ export default {
 @import '~static_css/common/var';
 @import '~static_css/common/mixin';
   .page-vote-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: #0D43A8 url(~static_img/bg.jpg) repeat-y center;
     background-size: 100% auto;
-    height: 100%;
     overflow-y: auto;
     padding: rem(34) rem(20);
     box-sizing: border-box;
