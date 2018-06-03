@@ -35,9 +35,13 @@ export default {
 @import '~static_css/common/var';
 @import '~static_css/common/mixin';
 .page-detail-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: #E8E8E8;
   padding: rem(30);
-  height: 100%;
   box-sizing: border-box;
   overflow-y: auto;
   overflow-x: hidden;
