@@ -3,7 +3,7 @@
       <div class="chat-win" id="chatContainer" :style="{'-webkit-overflow-scrolling': scrollMode}">
         <Loadmore :top-method="loadTop" :auto-fill="false" ref="loadmore" :top-pull-text="pullText" :top-drop-text="pullText" :top-loading-text="loadingText">
           <ul class="chat-list">
-            <template  v-for="item in chatList">
+            <template  v-for="item in chatList" :key="item.id">
               <!--other-->
               <li class="msg-wrap" v-if="!item.userid && !item.self" :id="item.id">
                   <div class="avantar-wrap">

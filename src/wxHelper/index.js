@@ -2,10 +2,10 @@ import axios from 'axios'
 import wx from 'weixin-js-sdk'
 
 export default class WxHelper {
-  constructor() {
+  constructor () {
     this.config = {}
   }
-  getConfig(url) {
+  getConfig (url) {
     axios.get(url).then((res) => {
       let status = res.status
       let data = res.data
@@ -26,20 +26,19 @@ export default class WxHelper {
     })
   }
   weixinShareParamsSet (opt) {
-
     var img = opt.img
     var link = opt.link
     var desc = opt.desc
     var title = opt.title
 
-    //分享到朋友圈
+    // 分享到朋友圈
     wx.onMenuShareTimeline({
       title: title, // 分享标题
       link: link, // 分享链接
       imgUrl: img // 分享图标
     })
 
-    //分享给好友
+    // 分享给好友
     wx.onMenuShareAppMessage({
       title: title, // 分享标题
       desc: desc, // 分享描述
@@ -49,7 +48,7 @@ export default class WxHelper {
       dataUrl: '' // 如果type是music或video，则要提供数据链接，默认为空
     })
 
-    //分享到QQ
+    // 分享到QQ
     wx.onMenuShareQQ({
       title: title, // 分享标题
       desc: desc, // 分享描述
@@ -57,7 +56,7 @@ export default class WxHelper {
       imgUrl: img // 分享图标
     })
 
-    //分享到微博
+    // 分享到微博
     wx.onMenuShareWeibo({
       title: title, // 分享标题
       desc: desc, // 分享描述
@@ -65,7 +64,7 @@ export default class WxHelper {
       imgUrl: img // 分享图标
     })
 
-    //分享到QQ空间
+    // 分享到QQ空间
     wx.onMenuShareQZone({
       title: title, // 分享标题
       desc: desc, // 分享描述

@@ -15,7 +15,7 @@
     <div class="function-group" v-if="showEmojiList">
       <mt-swipe :auto="0">
         <mt-swipe-item v-for="n in Math.ceil(EXPS.length/24)" :key="n">
-          <li v-for="(item, index) in getEmotionData(n,24)" class="face-emoji">
+          <li v-for="(item, index) in getEmotionData(n,24)" :key="item.file" class="face-emoji">
             <img :src="item.file" :data="item.code" v-on:click="content+=item.title">
           </li>
         </mt-swipe-item>

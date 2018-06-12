@@ -14,7 +14,7 @@
         v-infinite-scroll="getList"
         infinite-scroll-distance="10"
         infinite-scroll-disabled="hasNoPage">
-        <PlayerCard :cardData="item" v-for="item in list"  :smallCard="true" @show-card="showCard"></PlayerCard>
+        <PlayerCard :cardData="item" v-for="item in list" :key="item" :smallCard="true" @show-card="showCard"></PlayerCard>
         <Spinner type="fading-circle" color="#1c91e0" :isShow="isLoading"></Spinner>
       </div>
       <div class="cyui-loadmore cyui-loadmore_line" v-show="hasNoPage">
