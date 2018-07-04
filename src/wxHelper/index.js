@@ -1,4 +1,3 @@
-import axios from 'axios'
 import wx from 'weixin-js-sdk'
 
 export default class WxHelper {
@@ -6,7 +5,7 @@ export default class WxHelper {
     this.config = {}
   }
   getConfig (url) {
-    axios.get(url).then((res) => {
+    Axios.get(url).then((res) => {
       let status = res.status
       let data = res.data
 

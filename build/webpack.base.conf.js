@@ -3,6 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const webpack = require('webpack')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -44,6 +45,12 @@ module.exports = {
       'static_widget': resolve('static/widget')
     }
   },
+  plugins:[
+    //声明全局方法
+    new webpack.ProvidePlugin({
+      Axios: "axios"
+    })
+  ],
   module: {
     rules: [
       ...(config.dev.useEslint ? [createLintingRule()] : []),

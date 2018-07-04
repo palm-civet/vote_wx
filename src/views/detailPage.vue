@@ -15,7 +15,7 @@ export default {
   },
   created () {
     let url = `/data/activity/${this.$route.params.activity_id}`
-    this.axios.get(url).then((res) => {
+    Axios.get(url).then((res) => {
       let status = res.status
       let data = res.data
 

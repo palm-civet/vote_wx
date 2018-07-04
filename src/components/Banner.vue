@@ -1,7 +1,7 @@
 <template>
   <div class="banner-wrap" v-if="list.length">
     <mt-swipe :auto="4000">
-      <mt-swipe-item  class="banner-item" v-for="item in list" v:key="item.img">
+      <mt-swipe-item  class="banner-item" v-for="item in list" :key="item.img">
         <a :href="item.href ? item.href : 'javascript:void(0)'">
           <img class="banner" :src="`http://za.jupiter.xin/uploads/${item.img}`" alt="图片">
         </a>
@@ -24,7 +24,7 @@ export default {
   },
   created () {
     let url = `/data/ads/${this.$route.params.activity_id}`
-    this.axios.get(url).then((res) => {
+    Axios.get(url).then((res) => {
       let status = res.status
       let data = res.data
       if (status >= 200 && status < 300 && data.success) {
