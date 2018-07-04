@@ -75,7 +75,7 @@ export default {
       if (this.isLoading) return
       this.isLoading = true
 
-      this.axios.get(url, {
+      Axios.get(url, {
         params: {
           page: this.page
         }

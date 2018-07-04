@@ -13,7 +13,7 @@ export default {
   methods: {
     vote () {
       let url = `/data/dovotes/${this.playerId}`
-      this.axios({
+      Axios({
         url: url
       }).then((res) => {
         let status = res.status

@@ -24,7 +24,7 @@ export default {
   },
   created () {
     let url = `/data/ads/${this.$route.params.activity_id}`
-    this.axios.get(url).then((res) => {
+    Axios.get(url).then((res) => {
       let status = res.status
       let data = res.data
       if (status >= 200 && status < 300 && data.success) {

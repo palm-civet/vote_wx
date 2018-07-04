@@ -1,37 +1,35 @@
 <template>
   <div class="page-chat-container">
-      <div class="chat-win" id="chatContainer" :style="{'-webkit-overflow-scrolling': scrollMode}">
-        <Loadmore :top-method="loadTop" :auto-fill="false" ref="loadmore" :top-pull-text="pullText" :top-drop-text="pullText" :top-loading-text="loadingText">
-          <ul class="chat-list">
-            <template  v-for="item in chatList" :key="item.id">
-              <!--other-->
-              <li class="msg-wrap" v-if="!item.userid && !item.self" :id="item.id">
-                  <div class="avantar-wrap">
-                    <img :src="item.user_avatar" alt="用户头像" class="avantar">
-                  </div>
-                  <div class="detail-wrap">
-                    <div class="name">{{item.user_name}}</div>
-                    <div class="content" v-html="replaceFace(item.comment_content)"></div>
-                  </div>
-              </li>
-              <!--user-->
-              <li class="msg-wrap user-msg" :id="item.id" v-else>
-                  <div class="detail-wrap right-detail-wrap">
-                    <div class="content" v-html="replaceFace(item.comment_content)"></div>
-                  </div>
-                  <div class="avantar-wrap">
-                    <img v-if="item.user_avatar" :src="item.user_avatar" class="avantar">
-                  </div>
-              </li>
-            </template>
-          </ul>
-        </Loadmore>
-      </div>
-      <ChatFooterFun
-        @send-text="sendText"
-        @send-text-error="sendTextErr"
-        @send-text-success="sendTextSuc"
-        :EXPS="EXPS"></ChatFooterFun>
+    <div class="chat-win" id="chatContainer" :style="{'-webkit-overflow-scrolling': scrollMode}">
+      <Loadmore :top-method="loadTop" :auto-fill="false" ref="loadmore" :top-pull-text="pullText" :top-drop-text="pullText" :top-loading-text="loadingText">
+        <ul class="chat-list" v-for="item in chatList" :key="item.id">
+          <!--other-->
+          <li class="msg-wrap" v-if="!item.userid && !item.self" :id="item.id">
+            <div class="avantar-wrap">
+              <img :src="item.user_avatar" alt="用户头像" class="avantar">
+            </div>
+            <div class="detail-wrap">
+              <div class="name">{{item.user_name}}</div>
+              <div class="content" v-html="replaceFace(item.comment_content)"></div>
+            </div>
+          </li>
+          <!--user-->
+          <li class="msg-wrap user-msg" :id="item.id" v-else>
+            <div class="detail-wrap right-detail-wrap">
+              <div class="content" v-html="replaceFace(item.comment_content)"></div>
+            </div>
+            <div class="avantar-wrap">
+              <img v-if="item.user_avatar" :src="item.user_avatar" class="avantar">
+            </div>
+          </li>
+        </ul>
+      </Loadmore>
+    </div>
+  <ChatFooterFun
+    @send-text="sendText"
+    @send-text-error="sendTextErr"
+    @send-text-success="sendTextSuc"
+    :EXPS="EXPS"></ChatFooterFun>
   </div>
 </template>
 <script>
@@ -90,7 +88,7 @@ export default {
     loadUserData () {
       let USER_URL = '/data/userinfo/'
 
-      this.axios.get(USER_URL).then((res) => {
+      Axios.get(USER_URL).then((res) => {
         let status = res.status
         let data = res.data
 
@@ -106,7 +104,7 @@ export default {
     loadIintData () {
       let INIT_URL = `/data/comment/newest/${this.$route.params.activity_id}`
 
-      this.axios.get(INIT_URL).then((res) => {
+      Axios.get(INIT_URL).then((res) => {
         let status = res.status
         let data = res.data
 
@@ -134,7 +132,7 @@ export default {
 
       let NEW_URL = `/data/comment/down/${this.$route.params.activity_id}`
 
-      this.axios.get(NEW_URL, {
+      Axios.get(NEW_URL, {
         params: {
           id: this.lastQaId
         }
@@ -165,7 +163,7 @@ export default {
       if (this.allLoaded) return
 
       this.scrollMode = 'auto'
-      this.axios.get(OLD_URL, {
+      Axios.get(OLD_URL, {
         params: {
           id: this.firstQaId
         }

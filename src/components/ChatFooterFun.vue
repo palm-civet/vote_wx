@@ -57,7 +57,7 @@ export default {
       })
 
       let url = `/data/comment/${this.$route.params.activity_id}`
-      this.axios.get(url, {
+      Axios.get(url, {
         params: {
           content: postContent
         }
