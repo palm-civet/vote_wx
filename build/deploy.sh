@@ -1,13 +1,13 @@
 #!/bin/bash
 
 APP_NAME="vote-wx"
-TEMP_DIR="tmp"
+TEMP_DIR="tmpl"
 
 SERVER_DIR='/home/data/code/laravelAdmin/resources'
 
 SSH_USER="root"
 # 默认qc
-SSH_IP="47.52.16.131"
+SSH_IP="39.104.75.70"
 
 node build/build.js || { echo "webpack complie failed"; exit 1; }
 
@@ -17,7 +17,7 @@ scp $APP_NAME-fe.tar.gz $SSH_USER@$SSH_IP:$TEMP_DIR || { echo "security copy fai
 
 ssh $SSH_USER@$SSH_IP <<EOF
 cd
-cd tmp
+cd tmpl
 tar -xzvf $APP_NAME-fe.tar.gz || { echo "extract failed"; exit 1; }
 cd ./dist || { echo "extract failed"; exit 1; }
 
